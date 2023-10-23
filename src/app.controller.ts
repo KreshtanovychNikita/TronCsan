@@ -1,12 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { TronApiService } from './app.service';
 
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+@Controller('api')
+export class ApiController {
+  constructor(private readonly tronApiService: TronApiService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('fetchData')
+  async fetchData(): Promise<void> {
+    const tronAddress = 'TBxrQVWSdkrbTTXxQqturyKJV9oScqW6XQ';
+    await this.tronApiService.fetchTronData(tronAddress);
   }
 }
