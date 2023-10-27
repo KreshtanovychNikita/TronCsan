@@ -11,11 +11,12 @@ export class DatabaseService {
   ) {}
 
   async saveTransactions(transactions: { data: any[] }): Promise<void> {
+    const type = 'USDT';
     for (const transaction of transactions.data.slice(0, 20)) {
       const {
         transaction_id,
         value,
-        token_info: { decimals },
+        token_info: { decimals, symbol },
       } = transaction;
       const currentTime = new Date().toISOString();
 
@@ -23,7 +24,7 @@ export class DatabaseService {
         where: { transactionId: transaction_id },
       });
 
-      if (!existingTransaction) {
+      if (!existingTransaction && symbol == type) {
         const convertedValue = parseFloat(value) / Math.pow(10, decimals);
 
         const newTransaction = this.transactionRepository.create({

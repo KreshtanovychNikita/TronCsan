@@ -5,7 +5,7 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: 'localhost',
   port: 5432,
-  username: 'postgres',
+  username: 'elogic',
   password: '123456789_qQ',
   database: 'troncase',
   entities: [Transaction],
